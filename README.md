@@ -24,7 +24,7 @@ Execute `/help` of the bot in Discord to view all available commands!
 <br>
 
 <p align="center">
-<img src="https://www.dropbox.com/scl/fi/r5rolwbnjvrq0rk6ajmgx/help_cmds.png?rlkey=nt1zo1z1e0tjhhnu7g7u6hj09&st=ezefdcni&dl=1"/>
+<img src="previews/help_cmds.png" alt="Supposably to be an image of Help Commands">
 </p>
 
 <br>
