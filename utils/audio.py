@@ -1,60 +1,101 @@
 import asyncio
 import logging
-
 import discord
 
-from private.essentials import STREAM_LINK
+# Import the STREAM_LINK from your config or environment file
+STREAM_LINK = "https://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3"
 
 
-# Function to join a voice channel and start playing audio
-async def join_and_play(channel, guild):
-    # Check if the bot is not connected or in a different channel
-    if not guild.voice_client or (guild.voice_client and not guild.voice_client.is_connected()):
+async def connect_to_channel(voice_channel):
+    """
+    Connects to the voice channel or moves to it if already connected to a different channel.
+    """
+    guild = voice_channel.guild
+    voice_client = guild.voice_client
+
+    if voice_client is None or not voice_client.is_connected():
         try:
-            await channel.connect()
+            return await voice_channel.connect()
         except discord.ClientException as e:
-            print(f"Error connecting to channel: {e}")
-            return
-    elif guild.voice_client.channel != channel:
-        # If connected to a different channel, move to the new channel
+            logging.error(f"Error connecting to channel: {e}")
+            return None
+    elif voice_client.channel != voice_channel:
         try:
-            await guild.voice_client.move_to(channel)
+            await voice_client.move_to(voice_channel)
         except discord.ClientException as e:
-            print(f"Error moving to a new channel: {e}")
-            return
+            logging.error(f"Error moving to a new channel: {e}")
+            return None
 
-    # Play the audio stream
-    play_audio(guild.voice_client)
+    return voice_client
 
 
-# Function to play audio in a voice channel
+async def ensure_voice(interaction):
+    """
+    Ensures that the bot joins the correct voice channel of the user.
+    """
+    embed = discord.Embed(color=discord.Color.blue())
+
+    if interaction.user.voice is None or interaction.user.voice.channel is None:
+        embed.description = "🚫 You must be in a voice channel to run this command."
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        return None
+
+    voice_channel = interaction.user.voice.channel
+    guild_voice_state = interaction.guild.voice_client
+
+    if guild_voice_state and guild_voice_state.channel == voice_channel:
+        embed.description = "🎶 I'm already in your voice channel."
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        return guild_voice_state
+    elif guild_voice_state:
+        embed.description = f"🔊 I'm already connected to a different channel: {guild_voice_state.channel.mention}"
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        return None
+
+    permissions = voice_channel.permissions_for(interaction.guild.me)
+    if not permissions.connect or not permissions.speak:
+        embed.description = "⛔ I need the `CONNECT` and `SPEAK` permissions."
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        return None
+
+    return await connect_to_channel(voice_channel)
+
+
 def play_audio(voice_client):
+    """
+    Plays the audio stream in the voice channel.
+    """
     try:
         audio_source = discord.FFmpegPCMAudio(STREAM_LINK, options='-b:a 96k')
         if not voice_client.is_playing():
             voice_client.play(audio_source, after=lambda e: handle_playback_errors(e, voice_client))
     except Exception as e:
         logging.error(f"Error starting FFmpeg audio stream: {e}")
+        asyncio.create_task(retry_play_audio(voice_client))
 
-        # wait 10 seconds before retrying
-        asyncio.sleep(10)
-        play_audio(voice_client)  # Retry playing the audio
+
+async def retry_play_audio(voice_client):
+    """
+    Retries to play audio after a delay in case of an error.
+    """
+    await asyncio.sleep(10)
+    play_audio(voice_client)
 
 
 def handle_playback_errors(error, voice_client):
+    """
+    Handles errors during playback and restarts the audio stream if needed.
+    """
     if error:
         logging.error(f"FFmpeg playback error: {error}")
-        # Implement error recovery such as restarting the stream
-        restart_audio_stream(voice_client.guild)
+        asyncio.create_task(restart_audio_stream(voice_client.guild))
 
 
-# Function to restart the audio stream in a guild's voice channel
 async def restart_audio_stream(guild):
-    # Get the voice client of the guild
+    """
+    Restarts the audio stream in the guild's voice channel.
+    """
     voice_client = guild.voice_client
-    # Check if the voice client is connected
     if voice_client and voice_client.is_connected():
-        # Stop any currently playing audio
         voice_client.stop()
-        # Replay the audio stream
         play_audio(voice_client)

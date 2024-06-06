@@ -43,7 +43,7 @@ class OnReady(commands.Cog):
             if guild:
                 channel = guild.get_channel(channel_id)
                 if channel:
-                    await audio.join_and_play(channel, guild)
+                    await audio.connect_to_channel(channel)
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):

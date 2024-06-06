@@ -3,7 +3,7 @@ import logging
 
 import aiohttp
 
-from private.essentials import STREAM_LINK
+from utils.audio import STREAM_LINK
 
 
 # Function to check if the stream link is working
