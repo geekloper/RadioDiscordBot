@@ -1,9 +1,11 @@
 # HitRadio
 
-<img src="https://cdn.discordapp.com/attachments/947328978857898016/951591067642372176/HitRadioReadMe.gif">
+![Banner](previews/HitRadio.gif)
 
-![Python](https://img.shields.io/badge/Python-3.11-purple.svg)
+
+![Python](https://img.shields.io/badge/Python-3.10-purple.svg)
 ![Discord.py](https://img.shields.io/badge/discord.py-v2.3.2-blue.svg)
+![FFMPEG.py](https://img.shields.io/badge/ffmpeg-v1.4-green.svg)
 
 <br>
 
@@ -22,7 +24,7 @@ Execute `/help` of the bot in Discord to view all available commands!
 <br>
 
 <p align="center">
-<img src="https://cdn.discordapp.com/attachments/934424188582780975/1195054451417960588/image.png?ex=65b29830&is=65a02330&hm=ad8a789e3c8dfcb9468023b2c18f8e01da419eedd7fff458fcc8cae217aa0803&"/>
+<img src="https://www.dropbox.com/scl/fi/r5rolwbnjvrq0rk6ajmgx/help_cmds.png?rlkey=nt1zo1z1e0tjhhnu7g7u6hj09&st=ezefdcni&dl=1"/>
 </p>
 
 <br>
@@ -38,7 +40,7 @@ Execute `/help` of the bot in Discord to view all available commands!
 <br>
 
 ## 🚀 Prequesitive
-- Brain (Optional xD)
+- Brain ( Optional xD )
 - Python 3.10 or higher
 - Internet
 
@@ -46,32 +48,33 @@ Execute `/help` of the bot in Discord to view all available commands!
 
 ## ⚙️ Installation
 
-1- Clone this repository.
+1- Clone this repository:
 ```bash
 git clone https://github.com/ExceptedPrism3/HitRadio.git
 ```
 
-⚠️ **You must have "git" installed on your machine first to be able to use this command**.
+⚠️ **You must have "<a href="https://www.git-scm.com">git</a>" installed on your machine first to be able to use this command**.
 
 <br>
-2- Download & Install the packages from the requirements.txt file:
+2- Download & Install the packages from the <i><b>`requirements.txt´</b></i> file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
 <br>
-3- Create a folder named `private` in the project root and access it.
+3- Create a folder named <i><b>`private`</b></i> in the project <b>root</b> and access it:
 
 ```bash
 mkdir private
 cd private
 ```
+
 <br>
-4- Create a python file called <b>essentials.py</b> and write into it the following
+4- Create a python file called <i><b>`essentials.py´</b></i> and write into it the following:
 
 ```bash
-echo "BOT_OWNER_ID = Owner_of_the_Bot_ID
+BOT_OWNER_ID = Owner_of_the_Bot_ID
 
 BOT_TOKEN = 'Bot_Token'
 
@@ -88,14 +91,20 @@ INVITE_LINK = 'discord_support_invite_link'
 OTHER_BOT_ENABLED = False
 
 OTHER_BOT_1 = 'INVITE_LINK_1'
-OTHER_BOT_2 = 'INVITE_LINK_2'" > essentials.py
+OTHER_BOT_2 = 'INVITE_LINK_2'
 ```
 
 <br>
-5- Go back to the root of the project and execute the following command:
+5- Go back to the root of the project:
 
 ```bash
 cd ..
+```
+
+<br>
+
+6- Run the project using the following command:
+```bash
 python main.py
 ```
 
@@ -103,9 +112,9 @@ python main.py
 
 ## 🌐 Extra Features
 Enhance your bot's capabilities by integrating additional bots you own. To showcase your other creations when users
-execute the /info command, simply enable the OTHER_BOT_ENABLED option found in the essentials.py file within the private
-folder and insert the bot's invite links bellow it. This feature allows you to cross-promote and increase visibility
-for all your Discord bots, creating a more engaging and diverse experience for your users.
+execute the <b>/info</b> command, simply enable the <b>OTHER_BOT_ENABLED</b> option found in the <b>essentials.py</b>
+file within the <b>private</b> folder and insert the bot's invite links bellow it. This feature allows you to
+cross-promote and increase visibility for all your Discord bots, creating a more engaging and diverse experience for your users.
 
 ### 🎉 **Enjoy 24/7 Hits with HitRadio!**
 <br>
