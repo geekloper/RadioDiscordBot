@@ -1,10 +1,18 @@
 import logging
+import os
 
 import discord
 from discord.app_commands import command
 from discord.ext import commands
+from dotenv import load_dotenv
 
-from private.essentials import BOT_INVITE, INVITE_LINK, BOT_OWNER_ID, OTHER_BOT_1, OTHER_BOT_2
+load_dotenv()
+
+BOT_INVITE = os.getenv('BOT_INVITE')
+INVITE_LINK = os.getenv('INVITE_LINK')
+BOT_OWNER_ID = os.getenv('BOT_OWNER_ID')
+OTHER_BOT_1 = os.getenv('OTHER_BOT_1')
+OTHER_BOT_2 = os.getenv('OTHER_BOT_2')
 
 
 # Class for creating a custom interactive view for the /info command

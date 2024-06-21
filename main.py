@@ -3,9 +3,10 @@ import os
 
 from discord import Intents
 from discord.ext import commands
+from dotenv import load_dotenv
 
-from private.essentials import BOT_TOKEN
-
+load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 # Main function to run the bot
 async def main():

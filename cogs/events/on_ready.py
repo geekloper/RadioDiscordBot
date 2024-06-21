@@ -1,12 +1,19 @@
 import asyncio
 from itertools import cycle
+import os
 
 import discord
 from discord.ext import commands, tasks
 
 from db import voice_channel_database
-from private.essentials import BOT_STATUS
 from utils import audio, stream_check
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BOT_STATUS = os.getenv('BOT_STATUS')
+DB_PATH = os.getenv('DB_PATH')
 
 
 # Cog that handles events when the bot is ready
@@ -15,7 +22,7 @@ class OnReady(commands.Cog):
         # Initialization with bot instance, status messages, and database path
         self.bot = bot
         self.status_messages = cycle(BOT_STATUS)
-        self.db_path = 'bot.db'
+        self.db_path = DB_PATH
         self.check_stream_task = None  # Task to check the stream status
 
     @tasks.loop(seconds=10.0)

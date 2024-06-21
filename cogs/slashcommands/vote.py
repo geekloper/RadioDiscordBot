@@ -1,8 +1,15 @@
+import os
 import discord
 from discord.app_commands import command
 from discord.ext import commands
 
-from private.essentials import BOT_INVITE, VOTE
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BOT_INVITE = os.getenv('BOT_INVITE')
+VOTE = os.getenv('VOTE')
+
 
 
 # UI Class for vote and invite links

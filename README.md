@@ -71,7 +71,7 @@ cd private
 ```
 
 <br>
-4- Create a python file called <i><b>`essentials.py´</b></i> and write into it the following:
+4- Create a env file called <i><b>`.env´</b></i> and write into it the following:
 
 ```bash
 BOT_OWNER_ID = Owner_of_the_Bot_ID
@@ -92,6 +92,8 @@ OTHER_BOT_ENABLED = False
 
 OTHER_BOT_1 = 'INVITE_LINK_1'
 OTHER_BOT_2 = 'INVITE_LINK_2'
+
+DB_PATH ='bot.db'
 ```
 
 <br>

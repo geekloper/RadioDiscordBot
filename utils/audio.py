@@ -1,9 +1,14 @@
 import asyncio
 import logging
+import os
 import discord
+from dotenv import load_dotenv
 
-# Import the STREAM_LINK from your config or environment file
-STREAM_LINK = "https://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3"
+load_dotenv()
+
+STREAM_LINK = os.getenv('STREAM_LINK')
+
+print(STREAM_LINK)
 
 
 async def connect_to_channel(voice_channel):
